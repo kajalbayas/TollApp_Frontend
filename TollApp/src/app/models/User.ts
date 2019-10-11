@@ -1,5 +1,7 @@
 
 import {UserVehicle} from './UserVehicle';
+import {Tolls} from './Toll';
+
 
 export class User {
     Id: number;

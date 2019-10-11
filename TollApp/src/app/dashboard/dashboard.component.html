@@ -1,3 +1,16 @@
-<p>
-  dashboard works!
-</p>
+<ion-header>
+  <ion-toolbar class="header-toolbar-color">
+    <ion-title class="ion-title">
+      Toll App
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label color="medium" position="floating">Toll Plaza</ion-label>
+    <ion-select placeholder="-Select Toll Plaza-" (ionChange)="getRoute(tolllist)">
+      <ion-select-option *ngFor="let tolllist of alltollplazas" >{{tolllist}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-content>

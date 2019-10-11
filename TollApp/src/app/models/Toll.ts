@@ -1,3 +1,5 @@
-export interface Tolls {
 
+
+export interface Tolls {
+     cost:number;
 }
