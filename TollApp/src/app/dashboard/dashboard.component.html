@@ -5,12 +5,44 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-item>
     <ion-label color="medium" position="floating">Toll Plaza</ion-label>
-    <ion-select placeholder="-Select Toll Plaza-" (ionChange)="getRoute(tolllist)">
-      <ion-select-option *ngFor="let tolllist of alltollplazas" >{{tolllist}}</ion-select-option>
+    <ion-select placeholder="-Select Toll Plaza-" (ionChange) ="getRoute($event)">
+      <ion-select-option *ngFor="let tolllist of alltollplazas" [value]="tolllist.RouteId">{{tolllist.Location}}</ion-select-option>
     </ion-select>
+  </ion-item>
+  <div *ngIf="towords">
+    <ion-label>Towards</ion-label>
+    <div class="select-buttons">
+      <span class="check-button" (click)="selectTowords(towords[0]?.From)">{{towords[0]?.From}}</span>
+      <span class="check-button" (click)="selectTowords(towords[0]?.To)">{{towords[0]?.To}}</span>
+    </div>
+  </div>
+  <div *ngIf="selectedTowards">
+    <ion-label>Exit Location</ion-label>
+    <div class="select-buttons">
+      <span class="check-button" *ngFor="let item of towords[0].exitLocation" (click)="exitLocation=item.Location">{{item.Location}}</span>
+    </div>
+  </div>
+  <div *ngIf="exitLocation">
+    <ion-item>
+      <ion-label>Single Trip</ion-label>
+      <ion-toggle></ion-toggle>
+      <ion-label>Round Trip</ion-label>
+    </ion-item>
+
+    <div class="vehical-type">
+      <span class="vehical" *ngFor ="let vehicle of vehicleList" (click)="getTollCost(vehicle)">
+         <ion-img [src]=" '../../../assets/icon/'+vehicle.VehicleImg+'.svg'"></ion-img>
+      </span>
+    </div>
+  </div>
+
+
+
+  <ion-item>
+    <ion-label position="floating">Vehicle Number</ion-label>
+    <ion-input></ion-input>
   </ion-item>
 </ion-content>

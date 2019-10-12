@@ -1,10 +1,36 @@
 .header-toolbar-color{
   --background: #3880ff;
 }
-
 .ion-title {
   font-size: 25px;
   padding: 11px 0;
   color :#f5f6f9;
   text-align: center;
+}
+.select-buttons {
+  margin-top: 20px;
+  .check-button {
+    padding: 10px;
+    border: 1px solid;
+    margin: 0 10px;
+    border-radius: 20px;
+  }
+}
+.vehical-type {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 20px;
+  .vehical {
+    display: flex;
+    width: 60px;
+    padding: 0 10px;
+    height: 46px;
+    align-items: center;
+    border: 1px solid;
+    border-radius: 10px;
+    margin: 10px;
+    img {
+      height: 60px;
+    }
+  }
 }
