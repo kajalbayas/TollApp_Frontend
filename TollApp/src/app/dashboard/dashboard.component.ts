@@ -51,6 +51,7 @@ export class DashboardComponent implements OnInit {
                 return obj.RouteId
             }
         });
+
         this.tollservice.getToFrombyId(routeId.RouteId).subscribe(res => {
             console.log('get route', res);
             this.towords = res;
@@ -63,6 +64,7 @@ export class DashboardComponent implements OnInit {
         console.log(towards);
         this.selectedTowards = towards;
         this.getTollPlaza(direction);
+        console.log('Direction', direction);
         localStorage.setItem('toDirection',direction);
 
     }
@@ -70,7 +72,9 @@ export class DashboardComponent implements OnInit {
     tollList:any = []
     getTollPlaza(direction){
         let tollId = localStorage.getItem('selectedFromLoc');
+        console.log('TollId', tollId);
         if(direction) {
+            debugger;
             this.tollList = this.alltollplazas.filter(obj=>{
                 return obj.Id > tollId && this.RouteId == obj.RouteId
             })
@@ -80,6 +84,7 @@ export class DashboardComponent implements OnInit {
             }
 
         }else {
+            debugger;
             this.tollList = this.alltollplazas.filter(obj=>{
                 return obj.Id < tollId && this.RouteId == obj.RouteId
             })
@@ -100,24 +105,38 @@ export class DashboardComponent implements OnInit {
     getTollCost() {
         this.tollservice.getTollCost().subscribe( res=> {
             console.log(res);
-            this.tollData = res
+            this.tollData = res;
         });
     }
 
     selectedVechileType(value){
         console.log(value);
+        console.log('exit location',this.exitLocation);
         if(this.exitLocation != '1'){
+            debugger;
             let tollId = localStorage.getItem('selectedFromLoc');
             this.tollData.find(obj=>{
+                console.log('obje', obj);
+                debugger;
                 if(obj.Toll[0].Id == tollId && obj.ExitLocation[0].Id == this.exitLocation && obj.VehicleType[0].VehicleTypeId == value){
                     this.tollCostData = obj;
+                    console.log('costdata', this.tollCostData);
                     return true;
                 }
             })
         }else {
-            this.tollCostData = {
-                'Cost': 50
-            }
+            this.tollData.find(obj=>{
+                console.log('obje', obj);
+                debugger;
+                if(obj.VehicleType[0].VehicleTypeId == value){
+                    this.tollCostData = obj;
+                    console.log('costdata', this.tollCostData);
+                    return true;
+                }
+            })
+            // this.tollCostData = {
+            //     'Cost': 50
+            // }
         }
     }
 
