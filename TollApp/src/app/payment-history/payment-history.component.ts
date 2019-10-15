@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PaymentHistory}  from '../models/PaymentHistory';
 import {TollService} from '../services/toll.service';
 import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-payment-history',
@@ -10,7 +11,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class PaymentHistoryComponent {
   payementHistory:PaymentHistory[] = [];
-  constructor(private  tollservice: TollService) { }
+  constructor(private  tollservice: TollService, private  router:Router) { }
 
     ionViewWillEnter() {
         let id = '1';
@@ -18,5 +19,9 @@ export class PaymentHistoryComponent {
            this.payementHistory = data;
            console.log('histroydata',this.payementHistory);
         })
+    }
+
+    goBack() {
+        this.router.navigateByUrl('');
     }
 }

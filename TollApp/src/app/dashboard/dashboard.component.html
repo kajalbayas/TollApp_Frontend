@@ -44,10 +44,13 @@
     </div>
 
 
-    <ion-item>
-        <ion-label position="floating">Vehicle Number</ion-label>
-        <ion-input [formControl]="vechileNo"></ion-input>
-    </ion-item>
+    <div *ngIf="vehicleList">
+        <ion-item>
+            <ion-label position="floating">Vehicle Number</ion-label>
+            <ion-input [formControl]="vechileNo"></ion-input>
+        </ion-item>
+    </div>
+
     <div *ngIf=invalidVechNo
          class="validator-error">
         Please enter a Vechile No.
