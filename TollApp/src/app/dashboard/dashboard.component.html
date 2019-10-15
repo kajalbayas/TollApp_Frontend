@@ -1,48 +1,69 @@
 <ion-header>
-  <ion-toolbar class="header-toolbar-color">
-    <ion-title class="ion-title">
-      Toll App
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar class="header-toolbar-color">
+        <ion-title class="ion-title">
+            Toll App
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-item>
-    <ion-label color="medium" position="floating">Toll Plaza</ion-label>
-    <ion-select placeholder="-Select Toll Plaza-" (ionChange) ="getRoute($event)">
-      <ion-select-option *ngFor="let tolllist of alltollplazas" [value]="tolllist.RouteId">{{tolllist.Location}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-  <div *ngIf="towords">
-    <ion-label>Towards</ion-label>
-    <div class="select-buttons">
-      <span class="check-button" (click)="selectTowords(towords[0]?.From)">{{towords[0]?.From}}</span>
-      <span class="check-button" (click)="selectTowords(towords[0]?.To)">{{towords[0]?.To}}</span>
-    </div>
-  </div>
-  <div *ngIf="selectedTowards">
-    <ion-label>Exit Location</ion-label>
-    <div class="select-buttons">
-      <span class="check-button" *ngFor="let item of towords[0].exitLocation" (click)="exitLocation=item.Location">{{item.Location}}</span>
-    </div>
-  </div>
-  <div *ngIf="exitLocation">
     <ion-item>
-      <ion-label>Single Trip</ion-label>
-      <ion-toggle></ion-toggle>
-      <ion-label>Round Trip</ion-label>
+        <ion-label color="medium" position="floating">Toll Plaza</ion-label>
+        <ion-select placeholder="-Select Toll Plaza-" (ionChange)="getRoute($event)">
+            <ion-select-option *ngFor="let tolllist of alltollplazas" [value]="tolllist.Id">{{tolllist.Location}}
+            </ion-select-option>
+        </ion-select>
     </ion-item>
+    <div *ngIf="towords">
+        <ion-label>Towards</ion-label>
+        <div class="select-buttons">
+            <span class="check-button" (click)="selectTowords(towords[0]?.From,0)">{{towords[0]?.From}}</span>
+            <span class="check-button" (click)="selectTowords(towords[0]?.To,1)">{{towords[0]?.To}}</span>
+        </div>
+    </div>
+    <div *ngIf="selectedTowards">
+        <ion-label>Exit Location</ion-label>
+        <div class="select-buttons">
+            <span class="check-button" *ngFor="let item of tollList"
+                  (click)="exitLocation=item.Id">{{item.Location}}</span>
+            <!-- <span class="check-button" *ngFor="let item of towords[0].exitLocation" (click)="exitLocation=item.Location b  b">{{item.Location}}</span> -->
 
-    <div class="vehical-type">
-      <span class="vehical" *ngFor ="let vehicle of vehicleList" (click)="getTollCost(vehicle)">
+        </div>
+    </div>
+    <div *ngIf="exitLocation">
+        <ion-item>
+            <ion-label>Single Trip</ion-label>
+            <ion-toggle></ion-toggle>
+            <ion-label>Round Trip</ion-label>
+        </ion-item>
+
+        <div class="vehical-type">
+      <span class="vehical" *ngFor="let vehicle of vehicleList" (click)="selectedVechileType(vehicle.VehicleTypeId)">
          <ion-img [src]=" '../../../assets/icon/'+vehicle.VehicleImg+'.svg'"></ion-img>
       </span>
     </div>
-  </div>
+    </div>
 
 
+    <ion-item>
+        <ion-label position="floating">Vehicle Number</ion-label>
+        <ion-input [formControl]="vechileNo"></ion-input>
+    </ion-item>
+    <div *ngIf=invalidVechNo
+         class="validator-error">
+        Please enter a Vechile No.
+    </div>
 
-  <ion-item>
-    <ion-label position="floating">Vehicle Number</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
+    <div *ngIf="tollCostData">
+        <ion-label>You Pay</ion-label>
+
+        <span class="cost-class">Rs.{{tollCostData.Cost}}</span>
+        <!-- <span class="check-button" *ngFor="let item of towords[0].exitLocation" (click)="exitLocation=item.Location b  b">{{item.Location}}</span> -->
+
+        <ion-buttons slot="primary">
+            <ion-button color="secondary" (click)="payNow(data)">
+                Pay Now
+            </ion-button>
+        </ion-buttons>
+
+    </div>
 </ion-content>

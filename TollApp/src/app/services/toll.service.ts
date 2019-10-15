@@ -33,15 +33,18 @@ export class TollService {
            return this.http.get(VEHICLELIST);
     }
 
-    getCostByLocIdVehTypeId(id,) {
-      /*  const USERS = API.USER;
-        const USERID = 1;
-        const params = new HttpParams({
-            fromObject: {
-                LOCID: 23,
-                VEHICLEID: id,
-            }
-        });
-        return this.http.getById(USERS,USERID)*/
+    getTollCost() {
+        const TOLLCOST = API.TOLLCOST
+        return this.http.get(TOLLCOST);
+    }
+
+    payTollCost(data){
+        const PAYTOLL = API.PAYEMENTHISTORIES;
+        return this.http.post(PAYTOLL,data);
+    }
+
+    getPaymentHistory(id){
+        const PAYMENTHISTORY = API.PAYEMENTHISTORIES;
+        return this.http.getById(PAYMENTHISTORY,id);
     }
 }

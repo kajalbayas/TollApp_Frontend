@@ -1,14 +1,25 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import {DashboardComponent} from './dashboard/dashboard.component'
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {PayementReciptComponent} from './payement-recipt/payement-recipt.component';
+import {PaymentHistoryComponent}  from './payment-history/payment-history.component';
 
 const routes: Routes = [
     {
-      path: 'dashboard',
+      path: '',
       component:DashboardComponent
+    },
+
+    {
+        path: 'payement-recipt/:paidetails',
+        component:PayementReciptComponent
+    },
+
+    {
+        path: 'payementhistory',
+        component:PaymentHistoryComponent
     }
-  // { path: '', redirectTo: 'home', pathMatch: 'full' },
-  // { path: 'dashboard', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+
 ];
 
 @NgModule({

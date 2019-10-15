@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar class="header-toolbar-color">
+    <ion-title class="ion-title">
+      Toll App
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-label class="page-title">Thank You</ion-label>
+  <br><br>
+  <ion-label class="page-title1">Your Transcation Was Successful</ion-label>
+  <br>
+  <ion-label class="dash">---------------------------------------------------------------</ion-label>
+  <ng-container>
+    <ion-card>
+      <ion-card-content>
+        <ion-label>{{payementDetails1.TranscationId}}</ion-label>
+        <br>
+        <ion-label>{{payementDetails1.Routes[0].From +'-'+ payementDetails1.Routes[0]?.To}}</ion-label>
+        <br>
+        <ion-label>{{payementDetails1.exitlocation[0].Location}}</ion-label>
+        <br>
+        <ion-label>{{payementDetails1.CreatedDate}}</ion-label>
+
+        <ion-buttons slot="primary">
+          <ion-button color="secondary" (click)="gotopaymenthistory()">
+            Payment History
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons slot="primary">
+          <ion-button color="secondary" (click)="gotoHomePage()">
+             Back To Home
+          </ion-button>
+        </ion-buttons>
+      </ion-card-content>
+    </ion-card>
+
+
+  </ng-container>
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<ion-card-header>-->
+<!--<ion-card-subtitle>Card Subtitle</ion-card-subtitle>-->
+<!--<ion-card-title>Card Title</ion-card-title>-->
+<!--</ion-card-header>-->
