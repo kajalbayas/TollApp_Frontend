@@ -55,12 +55,11 @@
         </ion-item>
     </div>
 
-    <div *ngIf=invalidVechNo
-         class="validator-error">
+    <div *ngIf=invalidVechNo class="validator-error">
         Please enter a Vechile No.
     </div>
 
-    <div *ngIf="tollCostData" class ="header">
+    <div *ngIf="tollCostData" class="header">
         <ion-label position="floating">You Pay</ion-label>
         <span class="cost-class">Rs.{{tollCostData.Cost}}</span>
         <ion-button class="btn" slot="primary" expand="block" color="primary" (click)="payNow(data)">Pay Now

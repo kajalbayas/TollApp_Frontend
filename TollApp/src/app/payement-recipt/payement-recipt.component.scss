@@ -4,11 +4,12 @@
 }
 
 .container{
-  background-color: #E8E8E8
+  --background:#E8E8E8;
+
 }
 .card {
   margin-top: 35px;
-  color:#FFFFFF;
+  --background:#FFFFFF;
 }
 
 .ion-title {
