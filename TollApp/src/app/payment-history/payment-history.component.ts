@@ -10,8 +10,10 @@ import {Router} from '@angular/router';
   styleUrls: ['./payment-history.component.scss'],
 })
 export class PaymentHistoryComponent {
-  payementHistory:PaymentHistory[] = [];
-  constructor(private  tollservice: TollService, private  router:Router) { }
+
+    payementHistory:any;
+
+    constructor(private  tollservice: TollService, private  router:Router) { }
 
     ionViewWillEnter() {
         let id = '1';

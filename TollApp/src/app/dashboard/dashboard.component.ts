@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
     alltollplazas:any = [];
     towords:any;
     selectedTowards:string;
+    selectedButton:boolean;
     exitLocation:string;
     vehicleList:any;
     tollData:any = [];
@@ -29,13 +30,12 @@ export class DashboardComponent implements OnInit {
 
     ionViewWillEnter() {
         this.tollservice.getAllTollPlazas().subscribe( res => {
-            console.log(res);
             this.alltollplazas = res;
-            console.log(res);
         });
     }
     ngOnInit() {
         this.getTollCost();
+        this.selectedButton = false;
         this.vechileNo.valueChanges.subscribe(res=>{
             if(res){
                 this.invalidVechNo = false;
@@ -43,7 +43,6 @@ export class DashboardComponent implements OnInit {
         })
     }
     getRoute(data) {
-        console.log('dataobj', data);
         localStorage.setItem('selectedFromLoc',data.detail.value);
         const routeId = this.alltollplazas.find(obj=>{
             if(obj.Id == data.detail.value){
@@ -53,18 +52,15 @@ export class DashboardComponent implements OnInit {
         });
 
         this.tollservice.getToFrombyId(routeId.RouteId).subscribe(res => {
-            console.log('get route', res);
             this.towords = res;
-            console.log('toards', this.towords);
             this.getVehicles();
         });
     }
     selectTowords(towards,direction) {
-        this.tollCostData = undefined
-        console.log(towards);
+        this.selectedButton = true;
+        this.tollCostData = undefined;
         this.selectedTowards = towards;
         this.getTollPlaza(direction);
-        console.log('Direction', direction);
         localStorage.setItem('toDirection',direction);
 
     }
@@ -74,7 +70,6 @@ export class DashboardComponent implements OnInit {
         let tollId = localStorage.getItem('selectedFromLoc');
         console.log('TollId', tollId);
         if(direction) {
-            debugger;
             this.tollList = this.alltollplazas.filter(obj=>{
                 return obj.Id > tollId && this.RouteId == obj.RouteId
             })
@@ -84,7 +79,6 @@ export class DashboardComponent implements OnInit {
             }
 
         }else {
-            debugger;
             this.tollList = this.alltollplazas.filter(obj=>{
                 return obj.Id < tollId && this.RouteId == obj.RouteId
             })
@@ -97,14 +91,12 @@ export class DashboardComponent implements OnInit {
 
     getVehicles() {
         this.tollservice.getVehicleList().subscribe( res=> {
-            console.log('vehicle',res );
             this.vehicleList = res;
         });
     }
 
     getTollCost() {
         this.tollservice.getTollCost().subscribe( res=> {
-            console.log(res);
             this.tollData = res;
         });
     }
@@ -113,38 +105,28 @@ export class DashboardComponent implements OnInit {
         console.log(value);
         console.log('exit location',this.exitLocation);
         if(this.exitLocation != '1'){
-            debugger;
             let tollId = localStorage.getItem('selectedFromLoc');
             this.tollData.find(obj=>{
-                console.log('obje', obj);
-                debugger;
                 if(obj.Toll[0].Id == tollId && obj.ExitLocation[0].Id == this.exitLocation && obj.VehicleType[0].VehicleTypeId == value){
                     this.tollCostData = obj;
-                    console.log('costdata', this.tollCostData);
                     return true;
                 }
             })
         }else {
             this.tollData.find(obj=>{
-                console.log('obje', obj);
-                debugger;
                 if(obj.VehicleType[0].VehicleTypeId == value){
                     this.tollCostData = obj;
                     console.log('costdata', this.tollCostData);
                     return true;
                 }
             })
-            // this.tollCostData = {
-            //     'Cost': 50
-            // }
         }
     }
 
     payNow() {
-        console.log(this.tollCostData)
-        console.log('vehicle number ', this.vechileNo.value);
         if(this.vechileNo.value) {
-            this.invalidVechNo = false;
+           this.invalidVechNo = false;
+            console.log('isvalid', this.invalidVechNo);
             let obj = {
                 "UserId": "1",
                 "ExitLocId": this.tollCostData.ExitLocation[0].Id,
@@ -155,7 +137,6 @@ export class DashboardComponent implements OnInit {
             }
 
             this.tollservice.payTollCost(obj).subscribe(res => {
-                console.log('response',res);
                 this.payementDetails = res;
                 this.toastmsg();
                 this.router.navigate(['/payement-recipt',  JSON.stringify(this.payementDetails)]);

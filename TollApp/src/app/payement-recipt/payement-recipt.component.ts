@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {PaymentHistory}  from '../models/PaymentHistory';
-import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-payement-recipt',
@@ -18,11 +18,7 @@ export class PayementReciptComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
             this.payementDetails = JSON.parse(paramMap.get('paidetails'));
-            //  this.payementDetails = JSON.parse(paramMap.get('paidetails'));
-            if (this.payementDetails.length > 0) {
-                this.payementDetails1 = this.payementDetails[this.payementDetails.length - 1];
-            }
-            console.log('paymentdetails', this.payementDetails1);
+            console.log('detsild',this.payementDetails)
         });
     }
 

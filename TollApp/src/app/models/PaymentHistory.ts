@@ -11,5 +11,5 @@ export interface PaymentHistory {
     VehicleNumber:Vehicle[];
     Amount:number;
     TranscationId:string;
-    CreatedDate:date;
+    CreatedDate: Date;
 }

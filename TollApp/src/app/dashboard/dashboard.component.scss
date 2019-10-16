@@ -12,19 +12,47 @@
 {
   color:red
 }
+
+.btn{
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.header {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+  //.check-button {
+  //  margin-top: 20px;
+  //  padding: 10px;
+  //  border: 1px solid;
+  //  margin: 0 10px;
+  //  border-radius: 20px;
+  //}
+  //.select-button {
+  //  padding: 10px;
+  //  border: 1px solid;
+  //  margin: 0 10px;
+  //  border-radius: 20px;
+  //  background: dodgerblue;
+  //}
+
 .select-buttons {
-  margin-top: 20px;
+  margin-top: 10px;
   .check-button {
-    padding: 10px;
+    // padding: 10px;
     border: 1px solid;
     margin: 0 10px;
     border-radius: 20px;
+    font-size: 10px;
   }
 }
+
 .vehical-type {
   display: flex;
   flex-wrap: wrap;
   padding: 10px 20px;
+  margin-left: 4px;
   .vehical {
     display: flex;
     width: 60px;
@@ -34,8 +62,42 @@
     border: 1px solid;
     border-radius: 10px;
     margin: 10px;
+    //background-color: #3880ff;
+
     img {
       height: 60px;
     }
+    .vehical-type.active{
+      background-color: #3880ff;
+    }
   }
 }
+
+.cost-class {
+  margin-top: 20px;
+  margin-left: 200px;
+  color:#3880ff;
+}
+
+
+
+
+
+
+
+
+
+//.check-button {
+//  margin-top: 20px;
+//  padding: 10px;
+//  border: 1px solid;
+//  margin: 0 10px;
+//  border-radius: 20px;
+//}
+//.select-button {
+//  padding: 10px;
+//  border: 1px solid;
+//  margin: 0 10px;
+//  border-radius: 20px;
+//  background: dodgerblue;
+//}
