@@ -9,26 +9,44 @@
 
 <ion-content class="container">
     <ion-card class="card">
+        <span class="circle">
+             <ion-img [src]=" '../../../assets/icon/check'+'.svg'"></ion-img>
+        </span>
         <ion-label class="page-title">Thank You</ion-label>
-        <ion-label class="page-title1">Your Transcation Was Successful</ion-label><br>
-        <ion-label class="dash">---------------------------------------------------------------</ion-label>
+        <ion-label class="page-title1">Your Transcation Was Successful</ion-label>
+        <br>
+        <!--<ion-label class="dash">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</ion-label>-->
         <ng-container>
-            <ion-card-content>
-                <ion-label>{{payementDetails.TranscationId}}</ion-label>
+            <ion-card-content class="card-content">
+                Transcation Id
+                <div class="transcation">
+                    <ion-label>{{payementDetails.TranscationId}}</ion-label>
+                </div>
                 <br>
-                <ion-label>{{payementDetails.Routes[0].From +'-'+ payementDetails.Routes[0]?.To}}</ion-label>
+                Cost
+                <div class="transcation">
+                    <ion-label>{{payementDetails.Amount}}</ion-label>
+                </div>
                 <br>
-                <ion-label>{{payementDetails.exitlocation[0].Location}}</ion-label>
+                Routes
+                <div class="transcation">
+                    <ion-label>{{payementDetails.Routes[0].From + '-' + payementDetails.Routes[0].To}}</ion-label>
+                </div>
                 <br>
-                <ion-label>{{payementDetails.CreatedDate}}</ion-label>
+                Exit location
+                <div class="transcation">
+                    <ion-label>{{payementDetails.exitlocation[0].Location}}</ion-label>
+                </div>
                 <br>
-                <ion-label>{{payementDetails.Amount}}</ion-label>
+                Created Date
+                <div class="transcation">
+                    <ion-label>{{payementDetails.CreatedDate|date:'medium'}}</ion-label>
+                </div>
+                <br>
 
-                <ion-buttons slot="primary">
-                    <ion-button color="secondary" (click)="gotopaymenthistory()">
-                        Payment History
-                    </ion-button>
-                </ion-buttons>
+                <ion-button class="btn" slot="primary" expand="block" color="primary" (click)="gotopaymenthistory()">
+                    Payment History
+                </ion-button>
 
                 <ion-buttons slot="primary">
                     <ion-button color="secondary" (click)="gotoHomePage()">

@@ -1,31 +1,32 @@
 <ion-header>
   <ion-toolbar class="header-toolbar-color">
-     <span class="button-inner" (click)="goBack()">
-        <ion-icon name="arrow-back"></ion-icon>
-    </span>
     <ion-title class="ion-title">
       Toll App
     </ion-title>
+    <span class="button-inner" (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+    </span>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-card *ngFor="let paymenthistory of payementHistory">
-  <ion-label>VehicleNumber</ion-label>
-  <div>{{paymenthistory.VehicleNumber}}</div><br>
-  <ion-label>Payment Id</ion-label>
-  <div>{{paymenthistory.TranscationId}}</div><br>
-  <ion-label>Routes</ion-label>
-  <div>{{paymenthistory.Routes[0].From +'-'+ paymenthistory.Routes[0].To}}</div><br>
-  <ion-label>Exitlocation</ion-label>
-  <div>{{paymenthistory.exitlocation[0].Location}}</div><br>
-  <ion-label>CreatedDate</ion-label>
-  <div>{{paymenthistory.CreatedDate}}</div><br>
-  <ion-label>Cost</ion-label>
-  <div>{{paymenthistory.Amount}}</div>
-
-
-
-
-</ion-card>
+  <ion-card *ngFor="let paymenthistory of payementHistory" class="card">
+    <ion-label>VehicleNumber</ion-label>
+    <div>{{paymenthistory.VehicleNumber}}</div>
+    <br>
+    <ion-label>Payment Id</ion-label>
+    <div>{{paymenthistory.TranscationId}}</div>
+    <br>
+    <ion-label>Routes</ion-label>
+    <div>{{paymenthistory.Routes[0].From +'-'+ paymenthistory.Routes[0].To}}</div>
+    <br>
+    <ion-label>Exitlocation</ion-label>
+    <div>{{paymenthistory.exitlocation[0].Location}}</div>
+    <br>
+    <ion-label>CreatedDate</ion-label>
+    <div>{{paymenthistory.CreatedDate|date:'medium'}}</div>
+    <br>
+    <ion-label>Cost</ion-label>
+    <div>{{paymenthistory.Amount}}</div>
+  </ion-card>
 </ion-content>
