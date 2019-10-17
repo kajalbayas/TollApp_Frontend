@@ -10,7 +10,6 @@ export class  API {
 
 
 export class MESSAGES {
-    public static THANK_YOU = 'Thank You';
-    public static TRANSACTION_COMPLETED = 'Your Transcation was Successful';
+    public static  INETRNET_CONNECTION ='You are no longer connected to Internet'
 }
 

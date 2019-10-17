@@ -7,34 +7,35 @@
 </ion-header>
 <ion-content class="content">
     <div class="header">
-    <ion-item>
-        <ion-label color="medium" position="floating">Toll Plaza</ion-label>
-        <ion-select placeholder="-Select Toll Plaza-" (ionChange)="getRoute($event)">
-            <ion-select-option *ngFor="let tolllist of alltollplazas" [value]="tolllist.Id">{{tolllist.Location}}
-            </ion-select-option>
-        </ion-select>
-    </ion-item>
+        <ion-item>
+            <ion-label color="medium" position="floating">Toll Plaza</ion-label>
+            <ion-select placeholder="-Select Toll Plaza-" (ionChange)="getRoute($event)">
+                <ion-select-option *ngFor="let tolllist of alltollplazas" [value]="tolllist.Id">{{tolllist.Location}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
     </div>
 
     <div class="header">
-    <div *ngIf="towords">
-        <ion-label>Towards</ion-label>
-        <div class="select-buttons">
-            <ion-button class="check-button" (click)="selectTowords(towords[0]?.From,0)">{{towords[0]?.From}}>
-            </ion-button>
-            <ion-button class="check-button" (click)="selectTowords(towords[0]?.To,1)">{{towords[0]?.To}}</ion-button>
+        <div *ngIf="towords">
+            <ion-label>Towards</ion-label>
+            <div class="select-buttons">
+                <ion-button class="check-button" (click)="selectTowords(towords[0]?.From,0)">{{towords[0]?.From}}>
+                </ion-button>
+                <ion-button class="check-button" (click)="selectTowords(towords[0]?.To,1)">{{towords[0]?.To}}
+                </ion-button>
+            </div>
         </div>
     </div>
-    </div>
-        <div class="header">
-    <div *ngIf="selectedTowards">
-        <ion-label>Exit Location</ion-label>
-        <div class="select-buttons">
-            <ion-button class="check-button" *ngFor="let item of tollList"
-                        (click)="exitLocation=item.Id">{{item.Location}}
-            </ion-button>
+    <div class="header">
+        <div *ngIf="selectedTowards">
+            <ion-label>Exit Location</ion-label>
+            <div class="select-buttons">
+                <ion-button class="check-button" *ngFor="let item of tollList"
+                            (click)="exitLocation=item.Id">{{item.Location}}
+                </ion-button>
+            </div>
         </div>
-    </div>
         </div>
     <div *ngIf="exitLocation">
         <ion-item>

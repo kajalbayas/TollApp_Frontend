@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from "@angular/common/http";
 import {ReactiveFormsModule,FormsModule}  from '@angular/forms';
+import {ExceptionHandlerInterceptorService}  from './services/exception-handler-interceptor.service';
 
 @NgModule({
   declarations: [AppComponent,DashboardComponent,PayementReciptComponent,PaymentHistoryComponent],
@@ -20,7 +21,8 @@ import {ReactiveFormsModule,FormsModule}  from '@angular/forms';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+      {provide: HTTP_INTERCEPTORS, useClass: ExceptionHandlerInterceptorService, multi: true},
   ],
   bootstrap: [AppComponent]
 })
