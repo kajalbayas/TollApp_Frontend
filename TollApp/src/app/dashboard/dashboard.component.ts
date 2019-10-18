@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {TollService} from '../services/toll.service';
-import {HttpClient} from '@angular/common/http';
 import {FormControl, Validators} from '@angular/forms';
-import {ToastController} from '@ionic/angular';
+import {MESSAGES} from '../constants/constants';
+import {ToastService} from '../services/toasterservice.service';
 import {Router} from '@angular/router';
+
 
 @Component({
     selector: 'app-dashboard',
@@ -25,7 +26,7 @@ export class DashboardComponent implements OnInit {
     invalidVechNo = false;
     payementDetails: any = [];
 
-    constructor(private  tollservice: TollService, private toaster: ToastController, private router: Router) {
+    constructor(private  tollservice: TollService, private toasterservice: ToastService, private router: Router) {
     }
 
     ionViewWillEnter() {
@@ -138,21 +139,10 @@ export class DashboardComponent implements OnInit {
 
             this.tollservice.payTollCost(obj).subscribe(res => {
                 this.payementDetails = res;
-                this.toastmsg();
+                this.toasterservice.showToast(MESSAGES.PAY_NOW)
+                // this.toastmsg();
                 this.router.navigate(['/payement-recipt', JSON.stringify(this.payementDetails)]);
             })
         }
-    }
-
-    async toastmsg() {
-        const toast = await this.toaster.create({
-            message: 'Paid Sucessfully',
-            duration: 3000
-        });
-        toast.present();
-    }
-
-    getTollId(value) {
-        console.log(value)
     }
 }

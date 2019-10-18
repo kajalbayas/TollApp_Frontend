@@ -10,6 +10,6 @@ export class  API {
 
 
 export class MESSAGES {
-    public static  INETRNET_CONNECTION ='You are no longer connected to Internet'
+    public static  PAY_NOW='Paid Sucessfully';
 }
 

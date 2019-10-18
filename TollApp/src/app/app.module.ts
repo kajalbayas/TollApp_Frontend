@@ -10,7 +10,7 @@ import {PayementReciptComponent}  from './payement-recipt/payement-recipt.compon
 import {PaymentHistoryComponent} from './payment-history/payment-history.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule,HTTP_INTERCEPTORS } from "@angular/common/http";
 import {ReactiveFormsModule,FormsModule}  from '@angular/forms';
 import {ExceptionHandlerInterceptorService}  from './services/exception-handler-interceptor.service';
 

@@ -12,12 +12,14 @@ import {Router} from '@angular/router';
 export class PaymentHistoryComponent {
 
     payementHistory:any;
+
     constructor(private  tollservice: TollService, private  router:Router) { }
 
     ionViewWillEnter() {
         let id = '1';
         this.tollservice.getPaymentHistory(id).subscribe(data => {
-           this.payementHistory = data;
+            console.log('data',  data);
+            this.payementHistory = data;
         })
     }
 

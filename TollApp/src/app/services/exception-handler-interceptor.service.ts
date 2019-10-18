@@ -5,7 +5,6 @@ import {finalize, tap} from 'rxjs/operators';
 import {ToastController} from '@ionic/angular';
 import {ToastService} from './toasterservice.service';
 import {TollService} from './toll.service';
-import {Network} from '@ionic-native/network/ngx';
 import {MESSAGES} from '../constants/constants';
 
 @Injectable({

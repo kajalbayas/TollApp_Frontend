@@ -10,14 +10,15 @@ import {PaymentHistory}  from '../models/PaymentHistory';
 })
 export class PayementReciptComponent implements OnInit {
 
-  payementDetails:any=[];
+  payementDetails:PaymentHistory[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,private router:Router) { }
 
     ngOnInit() {
         this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
             this.payementDetails = JSON.parse(paramMap.get('paidetails'));
-            });
+            console.log('PR',this.payementDetails);
+        });
     }
 
     gotopaymenthistory () {
