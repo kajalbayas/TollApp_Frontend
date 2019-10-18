@@ -25,7 +25,6 @@ export class DashboardComponent implements OnInit {
     invalidVechNo = false;
     payementDetails: any = [];
 
-
     constructor(private  tollservice: TollService, private toaster: ToastController, private router: Router) {
     }
 
@@ -148,7 +147,7 @@ export class DashboardComponent implements OnInit {
     async toastmsg() {
         const toast = await this.toaster.create({
             message: 'Paid Sucessfully',
-            duration: 5000
+            duration: 3000
         });
         toast.present();
     }
