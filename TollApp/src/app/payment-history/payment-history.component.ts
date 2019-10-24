@@ -11,18 +11,16 @@ import {Router} from '@angular/router';
 })
 export class PaymentHistoryComponent {
 
-    payementHistory:any;
+    payementHistory:PaymentHistory;
 
     constructor(private  tollservice: TollService, private  router:Router) { }
 
     ionViewWillEnter() {
         let id = '1';
-        this.tollservice.getPaymentHistory(id).subscribe(data => {
-            console.log('data',  data);
+        this.tollservice.getPaymentHistory(id).subscribe((data:any) => {
             this.payementHistory = data;
         })
     }
-
     goBack() {
         this.router.navigateByUrl('');
     }

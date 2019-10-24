@@ -1,6 +1,6 @@
 import{Vehicle} from './Vehicles';
 
-export  interface UserVehicle {
+export  class UserVehicle {
     Id: number;
     VehicleTypeId : Vehicle[];
     VehicleNumber:string;

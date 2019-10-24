@@ -1,5 +1,5 @@
 
 
-export interface Tolls {
+export class Tolls {
      cost:number;
 }

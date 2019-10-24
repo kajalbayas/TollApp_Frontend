@@ -2,7 +2,7 @@ import {Route} from './Route';
 import {Tollplaza} from './tollplaza';
 import {Vehicle}  from './Vehicles';
 
-export interface PaymentHistory {
+export class PaymentHistory {
     Id: number;
     UserId:number;
     ExitLocId:Tollplaza[];

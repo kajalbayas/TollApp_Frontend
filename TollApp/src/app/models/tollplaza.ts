@@ -1,6 +1,7 @@
 
-export interface Tollplaza {
+export class Tollplaza {
     Id:number;
-    Location: string;
+    Location: String;
+    RouteId:string;
 }
 

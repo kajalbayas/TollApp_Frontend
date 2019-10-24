@@ -1,9 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {TollService} from '../services/toll.service';
-import {FormControl, Validators} from '@angular/forms';
-import {MESSAGES} from '../constants/constants';
-import {ToastService} from '../services/toasterservice.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { TollService } from '../services/toll.service';
+import { FormControl, Validators } from '@angular/forms';
+import { MESSAGES } from '../constants/constants';
+import { ToastService } from '../services/toasterservice.service';
+import { Router } from '@angular/router';
+import { PayNow } from '../models/PayNow';
+import { Tollplaza } from '../models/tollplaza';
+import { Vehicle } from '../models/Vehicles';
+import { PaymentHistory } from '../models/PaymentHistory';
 
 
 @Component({
@@ -12,89 +16,70 @@ import {Router} from '@angular/router';
     styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-
-    alltollplazas: any = [];
-    towords: any;
-    selectedTowards: string;
-    selectedButton: boolean;
-    exitLocation: string;
-    vehicleList: any;
+    payNowObj: PayNow;
+    alltollplazas: Tollplaza[];
+    vehicleList: Vehicle[];
     tollData: any = [];
-    tollCostData: any;
-    RouteId: any;
     vechileNo = new FormControl();
-    invalidVechNo = false;
-    payementDetails: any = [];
+    payementDetails: PaymentHistory[] = [];
+    tollList: Tollplaza[];
 
-    constructor(private  tollservice: TollService, private toasterservice: ToastService, private router: Router) {
+    constructor(private tollservice: TollService, private toasterservice: ToastService, private router: Router) {
+        this.payNowObj = new PayNow();
     }
 
     ionViewWillEnter() {
-        this.tollservice.getAllTollPlazas().subscribe(res => {
+        this.tollservice.getAllTollPlazas().subscribe((res: any) => {
             this.alltollplazas = res;
         });
     }
 
     ngOnInit() {
         this.getTollCost();
-        this.selectedButton = false;
-        this.vechileNo.valueChanges.subscribe(res => {
-            if (res) {
-                this.invalidVechNo = false;
-            }
-        })
+        this.payNowObj.selectedButton = false;
     }
 
     getRoute(data) {
         localStorage.setItem('selectedFromLoc', data.detail.value);
         const routeId = this.alltollplazas.find(obj => {
-            if (obj.Id == data.detail.value) {
-                this.RouteId = obj.RouteId;
-                return obj.RouteId
-            }
+            return obj.Id == data.detail.value
         });
-
-        this.tollservice.getToFrombyId(routeId.RouteId).subscribe(res => {
-            this.towords = res;
+        this.payNowObj.RouteId = routeId.RouteId;
+        this.tollservice.getToFrombyId(routeId.RouteId).subscribe((res: any) => {
+            this.payNowObj.towords = res;
             this.getVehicles();
         });
     }
 
     selectTowords(towards, direction) {
-        this.selectedButton = true;
-        this.tollCostData = undefined;
-        this.selectedTowards = towards;
+        this.payNowObj.selectedButton = true;
+        this.payNowObj.Amount = 0;
+        this.payNowObj.selectedTowards = towards;
         this.getTollPlaza(direction);
-        localStorage.setItem('toDirection', direction);
-
     }
-
-    tollList: any = []
 
     getTollPlaza(direction) {
         let tollId = localStorage.getItem('selectedFromLoc');
         if (direction) {
             this.tollList = this.alltollplazas.filter(obj => {
-                return obj.Id > tollId && this.RouteId == obj.RouteId
+                return obj.Id > tollId && this.payNowObj.RouteId == obj.RouteId
             })
-            console.log(this.tollList)
             if (this.tollList.length == 0) {
-                this.exitLocation = '1';
+                this.payNowObj.ExitLocId = '1';
             }
 
         } else {
             this.tollList = this.alltollplazas.filter(obj => {
-                return obj.Id < tollId && this.RouteId == obj.RouteId
+                return obj.Id < tollId && this.payNowObj.RouteId == obj.RouteId
             })
-            console.log(this.tollList)
             if (this.tollList.length == 0) {
-                this.exitLocation = '1';
+                this.payNowObj.ExitLocId = '1';
             }
         }
     }
 
     getVehicles() {
-        this.tollservice.getVehicleList().subscribe(res => {
+        this.tollservice.getVehicleList().subscribe((res: Vehicle[]) => {
             this.vehicleList = res;
         });
     }
@@ -106,43 +91,34 @@ export class DashboardComponent implements OnInit {
     }
 
     selectedVechileType(value) {
-        if (this.exitLocation != '1') {
+        let tollCostData;
+        if (this.payNowObj.ExitLocId != '1') {
             let tollId = localStorage.getItem('selectedFromLoc');
-            this.tollData.find(obj => {
-                if (obj.Toll[0].Id == tollId && obj.ExitLocation[0].Id == this.exitLocation && obj.VehicleType[0].VehicleTypeId == value) {
-                    this.tollCostData = obj;
-                    return true;
-                }
-            })
+            tollCostData = this.tollData.find(obj => {
+                return obj.Toll[0].Id == tollId && obj.ExitLocation[0].Id == this.payNowObj.ExitLocId && obj.VehicleType[0].VehicleTypeId == value
+            });
         } else {
-            this.tollData.find(obj => {
-                if (obj.VehicleType[0].VehicleTypeId == value) {
-                    this.tollCostData = obj;
-                    console.log('costdata', this.tollCostData);
-                    return true;
-                }
+            tollCostData = this.tollData.find(obj => {
+                return obj.VehicleType[0].VehicleTypeId == value
             })
         }
+        console.log('tollcostdata',tollCostData);
+        this.payNowObj.Amount = tollCostData.Cost;
+        this.payNowObj.UserId = "1";
+        this.payNowObj.VehicleTypeId = tollCostData.VehicleType[0].VehicleTypeId
     }
 
     payNow() {
         if (this.vechileNo.value) {
-            this.invalidVechNo = false;
-            let obj = {
-                'UserId': '1',
-                'ExitLocId': this.tollCostData.ExitLocation[0].Id,
-                'VehicleTypeId': this.tollCostData.VehicleType[0].VehicleTypeId,
-                'RouteId': this.RouteId,
-                'Amount': this.tollCostData.Cost,
-                'VehicleNumber': this.vechileNo.value
-            }
-
-            this.tollservice.payTollCost(obj).subscribe(res => {
+            this.payNowObj.VehicleNumber = this.vechileNo.value;
+            this.tollservice.payTollCost(this.payNowObj).subscribe((res: any) => {
                 this.payementDetails = res;
                 this.toasterservice.showToast(MESSAGES.PAY_NOW)
                 // this.toastmsg();
                 this.router.navigate(['/payement-recipt', JSON.stringify(this.payementDetails)]);
             })
+        } else {
+            this.vechileNo.setErrors({ required: true })
         }
     }
 }

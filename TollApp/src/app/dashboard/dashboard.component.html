@@ -17,27 +17,27 @@
     </div>
 
     <div class="header">
-        <div *ngIf="towords">
+        <div *ngIf="payNowObj.towords">
             <ion-label>Towards</ion-label>
             <div class="select-buttons">
-                <ion-button class="check-button" (click)="selectTowords(towords[0]?.From,0)">{{towords[0]?.From}}
+                <ion-button class="check-button" (click)="selectTowords(payNowObj.towords[0]?.From,0)">{{payNowObj.towords[0]?.From}}
                 </ion-button>
-                <ion-button class="check-button" (click)="selectTowords(towords[0]?.To,1)">{{towords[0]?.To}}
+                <ion-button class="check-button" (click)="selectTowords(payNowObj.towords[0]?.To,1)">{{payNowObj.towords[0]?.To}}
                 </ion-button>
             </div>
         </div>
     </div>
     <div class="header">
-        <div *ngIf="selectedTowards">
+        <div *ngIf="payNowObj.selectedTowards">
             <ion-label>Exit Location</ion-label>
             <div class="select-buttons">
                 <ion-button class="check-button" *ngFor="let item of tollList"
-                            (click)="exitLocation=item.Id">{{item.Location}}
+                            (click)="payNowObj.ExitLocId=item.Id">{{item.Location}}
                 </ion-button>
             </div>
         </div>
-        </div>
-    <div *ngIf="exitLocation">
+    </div>
+    <div *ngIf="payNowObj.ExitLocId">
         <ion-item>
             <ion-label>Single Trip</ion-label>
             <ion-toggle></ion-toggle>
@@ -58,13 +58,13 @@
         </ion-item>
     </div>
 
-    <div *ngIf=invalidVechNo class="validator-error">
+    <div *ngIf="vechileNo.errors" class="validator-error">
         Please enter a Vechile No.
     </div>
 
-    <div *ngIf="tollCostData" class="header">
+    <div *ngIf="payNowObj.Amount" class="header">
         <ion-label position="floating">You Pay</ion-label>
-        <span class="cost-class">Rs.{{tollCostData.Cost}}</span>
+        <span class="cost-class">Rs.{{payNowObj.Amount}}</span>
         <ion-button class="btn" slot="primary" expand="block" color="primary" (click)="payNow(data)">Pay Now
         </ion-button>
     </div>
@@ -93,27 +93,3 @@
 
 
 
-
-
-<!--<div class="select-buttons">-->
-<!--<span class="check-button" *ngFor="let item of tollList"-->
-<!--(click)="exitLocation=item.Id">{{item.Location}}</span>-->
-<!--</div>-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<div class="select-buttons">-->
-<!--<span class="check-button"  (click)="selectTowords(towords[0]?.From,0)">{{towords[0]?.From}}</span>-->
-<!--<span class="check-button" (click)="selectTowords(towords[0]?.To,1)">{{towords[0]?.To}}</span>-->
-<!--</div>-->

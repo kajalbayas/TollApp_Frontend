@@ -17,14 +17,11 @@ export class PayementReciptComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
             this.payementDetails = JSON.parse(paramMap.get('paidetails'));
-            console.log('PR',this.payementDetails);
         });
     }
-
     gotopaymenthistory () {
         this.router.navigateByUrl('/payementhistory');
     }
-
     gotoHomePage() {
         this.router.navigateByUrl('');
     }
